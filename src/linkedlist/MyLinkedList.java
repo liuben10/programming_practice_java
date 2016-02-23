@@ -1,11 +1,11 @@
 package linkedlist;
 
-public class LinkedList {
+public class MyLinkedList {
 	Node hp;
 	private int size = 0;
 	
 	public static void main(String...args) {
-		LinkedList ll = new LinkedList();
+		MyLinkedList ll = new MyLinkedList();
 		ll.push(3);
 		ll.push(4);
 		ll.push(5);
@@ -14,7 +14,7 @@ public class LinkedList {
 		System.out.println(ll);
 	}
 	
-	public LinkedList() {
+	public MyLinkedList() {
 		this.hp = null;
 		this.size = 0;
 	}
