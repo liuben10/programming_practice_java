@@ -1,7 +1,7 @@
 package linkedlist;
 
 public class LinkedList {
-	Node hp;
+	LinkListNode hp;
 	private int size = 0;
 	
 	public static void main(String...args) {
@@ -24,11 +24,11 @@ public class LinkedList {
 	}
 	
 	public void push(int value) {
-		Node newNode = new Node(value);
+		LinkListNode newNode = new LinkListNode(value, null);
 		if (this.hp == null) {
 			this.hp = newNode;
 		} else {
-			Node tmp = this.hp;
+			LinkListNode tmp = this.hp;
 			this.hp = newNode;
 			this.hp.setNextNode(tmp);
 		}
@@ -41,7 +41,7 @@ public class LinkedList {
 			this.size = 0;
 			throw new RuntimeException("Cannot pop from an empty list");
 		} else {
-			Node toReturn = this.hp;
+			LinkListNode toReturn = this.hp;
 			this.hp = this.hp.getNextNode();
 			this.size -= 1;
 			return toReturn.getValue();
@@ -52,7 +52,7 @@ public class LinkedList {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		Node iter = this.hp;
+		LinkListNode iter = this.hp;
 		while(iter != null) {
 			sb.append(iter.getValue()).append("->");
 			iter = iter.getNextNode();
@@ -67,33 +67,4 @@ public class LinkedList {
 		return size;
 	}
 
-}
-
-class Node {
-	
-	private int value;
-	private Node nextNode;
-	
-	public Node(int value) {
-		this.value = value;
-		this.nextNode = null;
-	}
-
-	public int getValue() {
-		return value;
-	}
-
-	public void setValue(int value) {
-		this.value = value;
-	}
-
-	public Node getNextNode() {
-		return nextNode;
-	}
-
-	public void setNextNode(Node nextNode) {
-		this.nextNode = nextNode;
-	}
-	
-	
 }
