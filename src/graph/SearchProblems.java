@@ -27,7 +27,7 @@ public class SearchProblems {
 		graph.put("C", Arrays.asList("D"));
 		graph.put("D", Arrays.asList("F"));
 		graph.put("F", Collections.EMPTY_LIST);
-		dfs.iterative_dfs(graph, "A");+
+		dfs.iterative_dfs(graph, "A");
 	}
 	
 	public void iterative_dfs(Map<String, List<String>> graph, String src) {
