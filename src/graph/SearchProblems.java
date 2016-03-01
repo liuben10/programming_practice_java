@@ -1,6 +1,7 @@
 package graph;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -25,8 +26,8 @@ public class SearchProblems {
 		graph.put("B", Arrays.asList("D"));
 		graph.put("C", Arrays.asList("D"));
 		graph.put("D", Arrays.asList("F"));
-		graph.put("F", Arrays.asList());
-		dfs.iterative_dfs(graph, "A");
+		graph.put("F", Collections.EMPTY_LIST);
+		dfs.iterative_dfs(graph, "A");+
 	}
 	
 	public void iterative_dfs(Map<String, List<String>> graph, String src) {
