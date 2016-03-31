@@ -23,7 +23,6 @@ public class TowerOfHanoi {
 	}
 	
 	public static void towersOfHanoi(List<Integer> src, List<Integer> dest, List<Integer> spare) {
-		System.out.println(src + ", " + dest + ", " + spare);
 		if (src.size() == 1) {
 			move(src, dest);
 		} else {
