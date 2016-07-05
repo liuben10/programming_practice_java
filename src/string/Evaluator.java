@@ -1,14 +1,10 @@
 package string;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Evaluator {
 	
@@ -19,9 +15,7 @@ public class Evaluator {
 		operation.put("*", BinaryOperation.MULTIPLY);
 		operation.put("/", BinaryOperation.DIVIDE);	
 	}
-	
-	private final List<String> ORDER_OF_OPERATIONS = Arrays.asList("+", "-", "*", "/");
-	
+		
 	interface Operator {
 		int execute(int a, int b);
 	}
@@ -53,7 +47,6 @@ public class Evaluator {
 			}
 		}
 	}
-	
 	
 	public static void main(String...args) {
 		Evaluator evaluator = new Evaluator();
