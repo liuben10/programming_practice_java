@@ -129,9 +129,9 @@ public class Evaluator {
 		List<String> expressions = new ArrayList<String>();
 		for (int i = 0; i < trimmedExpression.length(); i++) {
 			String currentCharacter = trimmedExpression.substring(i, i+1);
-			if (currentCharacter.matches("[0-9]")) {
+			if (isNumber(currentCharacter)) {
 				subExpression += currentCharacter;
-			} else if (currentCharacter.matches("[\\+\\-\\*/]")) {
+			} else if (isOperator(currentCharacter)) {
 				if (subExpressionCount >= 1) {
 					subExpression += currentCharacter;
 				} else {
