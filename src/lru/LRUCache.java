@@ -22,8 +22,8 @@ public class LRUCache {
 	
 	public LRUCache(final int maxSize) {
 		super();
-		this.buffer = new LinkedList<Record>();
-		this.indexes = new HashMap<String, Record>();
+		this.buffer = new LinkedList<>();
+		this.indexes = new HashMap<>();
 		this.size = 0;
 		this.hitCount = 0;
 		this.missCount = 0;
@@ -31,7 +31,7 @@ public class LRUCache {
 	}
 	
 	public void initializeDataStoreForTest() {
-		dataStore = new LinkedList<Record>();
+		dataStore = new LinkedList<>();
 		for (char alph = 'A'; alph <= 'Z'; alph++) {
 			String alphString = new String(new char[]{alph});
 			dataStore.add(new Record(alphString, Character.getNumericValue(alph) + 26));
