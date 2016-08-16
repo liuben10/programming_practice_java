@@ -45,8 +45,8 @@ public class QuickSort {
 	 * Partition within memory.
 	 */
 	public static int partition_with_memory(Integer[] input, int start, int end) {
-		List<Integer> lowerBucket = new ArrayList<Integer>();
-		List<Integer> upperBucket = new ArrayList<Integer>();
+		List<Integer> lowerBucket = new ArrayList<>();
+		List<Integer> upperBucket = new ArrayList<>();
 		Random random = new Random();
 		int pivot = random.nextInt(end - start + 1) + start;
 		for(int i = 0 ; i < input.length; i++) {

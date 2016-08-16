@@ -17,17 +17,18 @@ public class AlphabetSoup {
 	/** */
 	public static void main(String[] args) throws Exception {
 		String[][] alphabetSoup  = {
-				{"A", "B", "C"},
-				{"B", "E", "D"},
-				{"G", "G", "F"},
+				{"R", "E", "T"},
+				{"B", "E", "T"},
+				{"X", "F", "G"},
 		};
 
-		System.out.println(exists("BEGG", alphabetSoup));
+		System.out.println(exists("BETTER", alphabetSoup));
 	}
 
 	private static boolean exists(String word, String[][] grid) {
 		int row = grid.length;
 		int col = grid[0].length;
+
 		for(int y = 0; y < row; y++) {
 			for (int x = 0; x < col; x++) {
 				final String firstLetter = word.substring(0, 1);
