@@ -1,43 +1,42 @@
 package dynamic;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 public class MakingChange {
 	
 	public static void main(String...args) {
-		System.out.println(maxNumCoins(new int[]{1, 3, 4}, 6));
+		System.out.println(makingChange(new int[]{1, 3, 4}, 6));
 	}
 	
-	public static int maxNumCoins(int[] coins, int value) {
-		int[] S = new int[value+1];
-		int[] coinUsed = new int[value+1];
-		for(int i = 1; i <= value; i++) {
-			int min = Integer.MAX_VALUE;
-			int coinToKeep = 0;
-			for (int p = 0; p < coins.length; p++) {
-				int curCoin = coins[p];
-				if (curCoin <= i) {
-					if (S[i-curCoin] + 1 < min) {
-						min = S[i-curCoin]+1;
-						coinToKeep = curCoin;
+
+	public static List<Integer> makingChange(final int[] coins, final int total) {
+		final int[] V = new int[total+1];
+		final int[] C = new int[total+1];
+		V[0] = 0;
+		C[0] = 0;
+		for(int i = 1; i < total+1; i++) {
+			int minValue = Integer.MAX_VALUE;
+			int minCoin = Integer.MAX_VALUE;
+			for (int coin : coins) {
+				if (i - coin >= 0) {
+					if ((V[i - coin] + 1) < minValue) {
+						minValue = V[i-coin] + 1;
+						minCoin = coin;
 					}
 				}
 			}
-			S[i] = min;
-			coinUsed[i] = coinToKeep;
+			V[i] = minValue;
+			C[i] = minCoin;
 		}
-		System.out.println(Arrays.toString(coinUsed));
-		int cnt = value;
-		List<Integer> finalCoinUsed = new ArrayList<Integer>();
-		while(cnt > 0) {
-			finalCoinUsed.add(coinUsed[cnt]);
-			cnt -= coinUsed[cnt];
+		List<Integer> results = new LinkedList <>();
+		int i = C.length-1;
+		while(i > 0) {
+			results.add(C[i]);
+			i = i - C[i];
 		}
-		System.out.println(Arrays.toString(S));
-		System.out.println(finalCoinUsed);
-		return S[S.length-1];
+
+		return results;
 	}
 
 }
