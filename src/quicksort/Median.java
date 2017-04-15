@@ -11,12 +11,12 @@ import java.util.Random;
 public class Median {
 	
 	public static void main(String...args) {
-		Integer[] testIn = new Integer[]{3, 4, 2, 5, 6};
-		System.out.println("median=" + median(testIn, 0, 4));
+		int[] testIn = new int[]{3, 4, 2, 5, 6};
+		System.out.println("median=" + median_slow(testIn));
 	}
 	
 	
-	public static int median(Integer[] input, int start, int end) {
+	public static int median(int[] input, int start, int end) {
 		System.out.println("bounds={" + start + "," + end + "}; input=" + Arrays.toString(input));
 		if (start == end) {
 			return input[start];
@@ -34,14 +34,56 @@ public class Median {
 			}
 		}
 	}
-	
-	
-	public static void swap(Integer[] input, int src, int end) {
+
+	public static int median_slow(final int[] input) {
+		bubbleSort(input);
+		return input[input.length / 2];
+	}
+
+	private static void bubbleSort(final int[] input) {
+		for (int i = input.length-1; i >= 0; i--) {
+			for (int j = 0; j < i; j++) {
+				if (j > 0 && input[j] < input[j-1]) {
+					swap(input, j, j-1);
+				}
+			}
+		}
+	}
+
+
+	public static void swap(int[] input, int src, int end) {
 		int tmp = input[end];
 		input[end] = input[src];
 		input[src] = tmp;
 	}
-	public static int partition(Integer[] input, int start, int end) {
+
+	public static int partition_with_memory(int[] input, int start, int end) {
+		List<Integer> lowerBucket = new ArrayList<>();
+		List<Integer> upperBucket = new ArrayList<>();
+		Random random = new Random();
+		int pivot = random.nextInt(end - start + 1) + start;
+		for(int i = 0 ; i < input.length; i++) {
+			if (i == pivot) {
+				continue;
+			}
+			if (input[i] < input[pivot]) {
+				lowerBucket.add(input[i]);
+			} else {
+				upperBucket.add(input[i]);
+			}
+		}
+		int small = lowerBucket.size();
+		lowerBucket.add(input[pivot]);
+		lowerBucket.addAll(upperBucket);
+		for(int i = 0; i < lowerBucket.size(); i++) {
+			input[i] = lowerBucket.get(i);
+		}
+		return small;
+
+	}
+
+
+	public static int partition(int[] input, int start, int end) {
 		Random random = new Random();
 		try {
 			int pivot = random.nextInt(end - start + 1) + start;

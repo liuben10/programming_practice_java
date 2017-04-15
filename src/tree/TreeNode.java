@@ -7,6 +7,7 @@ public class TreeNode {
 		this.left = left;
 		this.right = right;
 	}
+
 	public Integer value;
 	public TreeNode left;
 	public TreeNode right;
