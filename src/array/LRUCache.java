@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by benjaminliu on 8/16/16.
  */
 public class LRUCache {
 

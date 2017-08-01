@@ -9,8 +9,8 @@ public class StackWithQueues {
 	private Queue<Integer> backQueue;
 	
 	public StackWithQueues() {
-		frontQueue = new LinkedList<Integer>();
-		backQueue = new LinkedList<Integer>();
+		frontQueue = new LinkedList<>();
+		backQueue = new LinkedList<>();
 	}
 	
 	public void push(Integer element) {
