@@ -32,7 +32,7 @@ public class EditDistance {
 					int deletion = distances[i][j-1] + 1;
 					int insertion = distances[i-1][j] + 1;
 					int substitution = distances[i-1][j-1] + 1;
-					List<Integer> collection = new ArrayList<Integer>();
+					List<Integer> collection = new ArrayList<>();
 					collection.add(deletion);
 					collection.add(insertion);
 					collection.add(substitution);
