@@ -5,7 +5,6 @@ public class MaxSubSequence {
 	public static void main(String...args) {
 		Integer[] testIn = new Integer[]{4, 3, -1, 2};
 		System.out.println(maxSum(testIn));
-		
 	}
 
 	public static int maxSum(Integer[] input) {
