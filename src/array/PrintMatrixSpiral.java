@@ -19,7 +19,7 @@ public class PrintMatrixSpiral {
 				System.out.println(matr[row][col]);
 				while (row >= 0) {
 					row--;
-
+				//TODO Finish me
 				}
 			}
 
