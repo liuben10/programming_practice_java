@@ -3,7 +3,6 @@ package dynamic;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
 
 public class EditDistance {
 	
@@ -42,7 +41,5 @@ public class EditDistance {
 		}
 		return distances[b.length()-1][a.length()-1];
 	}
-
-
 
 }

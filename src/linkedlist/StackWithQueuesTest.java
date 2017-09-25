@@ -44,7 +44,6 @@ public class StackWithQueuesTest {
 		stackWithQueues.push(6);
 		assertEquals(new Integer(6), stackWithQueues.pop());
 		assertEquals(new Integer(4), stackWithQueues.pop());
-		
 	}
 
 }
