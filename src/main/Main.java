@@ -1,44 +1,73 @@
 package main;
 
-import java.math.BigDecimal;
-import java.util.Arrays;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-/**
- * Created by liuben10 on 3/13/17.
- */
 public class Main {
 
-	public static void main(String...args) {
-		for (int x = -100; x < 100; x++) {
-			for (int y = -100; y < 100; y++) {
-//				for (int z = 0; z < 100000; z++) {
-					float solution = evaluate(x, y);
-					if (solution == 20f) {
-						System.out.println("x=" + x + ", y=" + y);
-						System.out.println("solution");
-						break;
-					}
-//				}
+	private static boolean sortedOrNot(List<List<Integer>> matrix) {
+		if (matrix == null) {
+			return true;
+		}
+		for (List<Integer> rows : matrix) {
+			if (!isRowSorted(rows)) {
+				return false;
 			}
 		}
-	}
-
-	private static boolean containsTwoZero(List<Float> floats) {
-		int count = 0;
-		for (Float aFloat : floats) {
-			if (aFloat == 0) {
-				count += 1;
+		for (int i = 0; i < matrix.get(0).size(); i++) {
+			if (!isColSorted(matrix, i)) {
+				return false;
 			}
 		}
-		return count >= 2;
+		return true;
 	}
 
-	private static float evaluate(float x, float y) {
-		List<Float> floats = Arrays.asList(x, y);
-		if (containsTwoZero(floats)) {
-			return 0f;
+	private static boolean isColSorted(List<List<Integer>> matrix, int col) {
+		if (matrix.isEmpty()) {
+			return true;
 		}
-		return 2 * x * x + 3 * y;
+		int prev = matrix.get(0).get(col);
+		for (int i = 0; i < matrix.size(); i++) {
+			if (matrix.get(i).get(col) < prev) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private static boolean isRowSorted(List<Integer> rows) {
+		if (rows.isEmpty()) {
+			return true;
+		}
+		int prev = rows.get(0);
+		for (Integer elem : rows) {
+			if (elem < prev) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public static void main(String args[] ) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		List<List<Integer>> matrix = new ArrayList<>();
+
+		String input;
+		while((input = br.readLine()) != null) {
+			String[] split = input.split(" ");
+			List<Integer> row = new ArrayList<>();
+			for (String s : split) {
+				row.add(Integer.parseInt(s));
+			}
+			matrix.add(row);
+		}
+		if (sortedOrNot(matrix)) {
+			System.out.println("sorted");
+		} else {
+			System.out.println("not sorted");
+		}
 	}
 }
