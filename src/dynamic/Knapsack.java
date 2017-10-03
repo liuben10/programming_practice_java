@@ -2,8 +2,6 @@ package dynamic;
 
 import java.util.Arrays;
 
-
-
 public class Knapsack {
 	
 	public static void main(String...args) {
@@ -18,15 +16,15 @@ public class Knapsack {
 			for(int w = 0; w <= maxCapacity; w++) {
 				if (i == 0 || w == 0) {
 					m[i][w] = 0;
-				}
-				else if (weights[i-1] <= w) {
-					m[i][w] = Math.max(m[i-1][w-weights[i-1]] + values[i-1], m[i-1][w]);
-				} else {		
-					m[i][w] = m[i-1][w];
+				} else if (weights[i - 1] <= w) {
+					m[i][w] = Math.max(m[i - 1][w - weights[i - 1]] + values[i - 1], m[i - 1][w]);
+				} else {
+					m[i][w] = m[i - 1][w];
 				}
 			}
+			System.out.println(Arrays.toString(m[i]));
 		}
-		System.out.println(Arrays.deepToString(m));
+//		System.out.println(Arrays.deepToString(m));
 	}
 
 }
