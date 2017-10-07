@@ -16,7 +16,6 @@ public class OneLevelEditDistance {
 		boolean hasAnEdit = false;
 		for (int i = 0, j = 0; i < longest.length() && j < shortest.length(); i++, j++) {
 			if (longest.charAt(i) != shortest.charAt(j)) {
-				hasAnEdit = true;
 				if (a.length() == b.length()) {
 					return !hasAtLeastOneEdit(a.substring(i+1), b.substring(j+1));
 				} else if (a.length() > b.length()) {
