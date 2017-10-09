@@ -35,6 +35,18 @@ public class BSTTreeTest {
 		System.out.println(tree.getNextInOrder(insert1));
 		System.out.println(tree.getNextInOrder(insert2));
 		System.out.println(tree.getNextInOrder(insert3));
+	}
 
+	@Test
+	public void canBottomUp() {
+		BSTTree tree = new BSTTree(100);
+		tree.insert(200);
+		tree.insert(50);
+		tree.insert(75);
+		tree.insert(92);
+		tree.insert(25);
+		tree.insert(250);
+
+		System.out.println(tree.bottomUp());
 	}
 }

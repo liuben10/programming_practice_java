@@ -1,9 +1,9 @@
 package tree;
 
+import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by liuben10 on 8/26/17.
@@ -78,6 +78,43 @@ public class BSTTree {
 	@Override
 	public String toString() {
 		return printString(root, 0);
+	}
+
+	private static class NodeWrap {
+		BSTNode node;
+		int depth;
+
+		public NodeWrap(BSTNode node, int depth) {
+			this.node = node;
+			this.depth = depth;
+		}
+	}
+
+	public List<List<Integer>> bottomUp() {
+		Queue<NodeWrap> fringe = new LinkedList<>();
+		List<List<Integer>> results = new ArrayList<>();
+		fringe.add(new NodeWrap(this.root, 0));
+		int curDepth = 0;
+		while (!fringe.isEmpty()) {
+			NodeWrap wrap = fringe.remove();
+			int depth = wrap.depth;
+			BSTNode node = wrap.node;
+			if (depth >= results.size()) {
+				results.add(new ArrayList<>(Arrays.asList(node.getValue())));
+			} else {
+				results.get(depth).add(node.getValue());
+			}
+
+			if (node.getLeft() != null) {
+				fringe.add(new NodeWrap(node.getLeft(), depth + 1));
+			}
+
+			if (node.getRight() != null) {
+				fringe.add(new NodeWrap(node.getRight(), depth + 1));
+			}
+		}
+
+		return Lists.reverse(results);
 	}
 
 	private String printString(BSTNode root, int padding) {

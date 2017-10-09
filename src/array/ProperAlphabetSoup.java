@@ -6,13 +6,17 @@ package array;
 public class ProperAlphabetSoup {
 
 	public static boolean canFindInGrid(char[][] grid, String word) {
+		boolean result = false;
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid[0].length; j++) {
-				checkVerts(grid, i, j, word);
-				checkHoriz(grid, i, j, word);
-				checkDiags(grid, i, j, word);
+				result = checkVerts(grid, i, j, word) ||  checkHoriz(grid, i, j, word) || checkDiags(grid, i, j, word);
+				if (result) {
+					return result;
+				}
 			}
 		}
+
+		return result;
 	}
 
 	private static boolean checkDiags(char[][] grid, int row, int col, String word) {
