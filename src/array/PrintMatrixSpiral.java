@@ -12,20 +12,30 @@ public class PrintMatrixSpiral {
 		int row = centerCoord[0];
 		int col = centerCoord[1];
 		System.out.println(matr[row][col]);
-		while(col < max_col) {
-			col = col + 1;
-			while (row < max_row) {
-				row += 1;
-				System.out.println(matr[row][col]);
-				while (row >= 0) {
-					row--;
-				//TODO Finish me
-				}
+
+		int offset = 1;
+		int startingRow = row;
+		while (col + offset < max_col && row - offset >= 0) {
+
+			for (int i = startingRow; i < row + offset; i++) { //print lower leg
+				System.out.println(matr[i][col + offset]);
 			}
 
+			for (int i = col + offset; i > col - offset; i -= 1) {
+				System.out.println(matr[row + offset][i]);
+			}
+
+			for (int i = row + offset; i > row - offset; i -= 1) {
+				System.out.println(matr[i][col - offset]);
+			}
+
+			for (int i = col - offset; i <= col + offset; i += 1) {
+				System.out.println(matr[row - offset][i]);
+			}
+
+			offset += 1;
+			startingRow = startingRow - 1;
 		}
-
-
 	}
 
 	private static int[] findCenter(final int[][] matr) {
@@ -38,12 +48,14 @@ public class PrintMatrixSpiral {
 
 	public static void main(String...args) {
 
-
 		int[][] matrix = {
-				{1, 2, 4},
-				{7, 8, 9},
-				{12, 13, 14}
+				{1,  2,   3,  4,  5},
+				{6,  7,   8,  9, 10},
+				{11, 12, 13, 14, 15},
+				{16, 17, 18, 19, 20},
+				{21, 22, 23, 24, 25}
 		};
+
 
 		printMatrix(matrix);
 	}
