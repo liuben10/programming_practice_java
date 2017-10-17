@@ -6,12 +6,12 @@ public class FlipMatrix {
 	
 	public static void main(String...args) {
 		int[][] square = {
-				{3, 4, 5, 6},
-				{2, 3, 4, 5},
-				{9, 6, 7, 8},
-				{1, 2, 3, 4}
+				{1, 2, 3, 4},
+				{5, 6, 7, 8},
+				{9, 10, 11, 12},
+				{13, 14, 15, 16}
 		};
-		square = rotate90(square);
+		square = rotate270(square);
 		System.out.println(Arrays.deepToString(square));
 		
 	}

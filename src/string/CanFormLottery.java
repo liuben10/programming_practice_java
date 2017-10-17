@@ -45,7 +45,6 @@ public class CanFormLottery {
 
 			return takeOne || takeTwo;
 		}
-
 	}
 
 	public static boolean canFormLottery(String input) {
