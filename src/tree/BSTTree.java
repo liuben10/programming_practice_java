@@ -20,6 +20,10 @@ public class BSTTree {
 		return insertHelper(root, val);
 	}
 
+	public BSTNode getRoot() {
+		return this.root;
+	}
+
 	private BSTNode insertHelper(BSTNode node, Integer val) {
 		if (val < node.getValue()) {
 			if (node.getLeft() == null) {
