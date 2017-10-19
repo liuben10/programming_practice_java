@@ -1,10 +1,32 @@
 package array;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 public class Combination {
 	
 	
 	public static void main(String...args) {
-		printCombinations("abcde");
+		Set<String> result = combinationRecursive("abcde");
+		System.out.println(result);
+	}
+
+
+	public static Set<String> combinationRecursive(String input) {
+		if (input.length() == 0) {
+			return new HashSet<>(Arrays.asList(""));
+		}
+		Set<String> result = new HashSet<>();
+
+		result.add(input);
+
+		for (int i = 0; i < input.length(); i++) {
+			Set<String> powerSet = combinationRecursive(input.substring(0, i) + input.substring(i + 1));
+			result.addAll(powerSet);
+		}
+
+		return result;
 	}
 	
 	
