@@ -1,9 +1,31 @@
 package dynamic;
 
+import java.util.Arrays;
+
 /**
  * Created by benjaminliu on 9/27/17.
  */
 public class CountChange {
+
+	private static int countChangeNaive(int[] coins, int total, int i) {
+		if (total == 0) {
+			return 1;
+		} else if (i == 0) {
+			if (coins[i] < total) {
+				return countChangeNaive(coins, total - coins[i], i);
+			} else {
+				if (coins[i] == total) {
+					return 1;
+				} else {
+					return 0;
+				}
+			}
+		} else if (coins[i] > total) {
+			return countChangeNaive(coins, total, i-1);
+		} else {
+			return countChangeNaive(coins, total - coins[i], i) + countChangeNaive(coins, total, i-1);
+		}
+	}
 
 	private static int countChange(int[] coins, int total) {
 		int[][] V = new int[total+1][coins.length];
@@ -25,6 +47,9 @@ public class CountChange {
 	}
 
 	public static void main(String...args) {
-		System.out.println(countChange(new int[]{1, 2, 3}, 4));
+		int[] testIn = {1, 2, 3};
+		int testTotal = 4;
+//		System.out.println(countChange(testIn, testTotal));
+		System.out.println(countChangeNaive(testIn, testTotal, 2));
 	}
 }
