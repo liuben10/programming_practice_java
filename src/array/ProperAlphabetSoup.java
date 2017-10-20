@@ -27,6 +27,7 @@ public class ProperAlphabetSoup {
 		int diagOffset = 0;
 
 		StringBuilder sb = new StringBuilder();
+		StringBuilder sbTwo = new StringBuilder();
 		while (row - diagOffset >= 0 && row + diagOffset < rows && col - diagOffset >= 0 && col + diagOffset < cols) {
 			if (sb.toString().contains(word)) {
 				return true;
@@ -35,9 +36,13 @@ public class ProperAlphabetSoup {
 				sb.append(grid[row][col]);
 			} else {
 				sb.insert(0, grid[row-diagOffset][col-diagOffset]).append(grid[row + diagOffset][col + diagOffset]);
+				sbTwo.insert(0, grid[row-diagOffset][col+diagOffset]).append(grid[row+diagOffset][col-diagOffset]);
 			}
+
+			diagOffset += 1;
 		}
-		return false;
+
+		return sb.toString().contains(word) || sb.reverse().toString().contains(word) || sbTwo.toString().contains(word) || sb.toString().contains(word);
 	}
 
 	private static boolean checkHoriz(char[][] grid, int row, int col, String word) {
@@ -58,7 +63,7 @@ public class ProperAlphabetSoup {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < rows; i++) {
 			sb.append(grid[i][col]);
-			if (sb.toString().contains(word)) {
+			if (sb.toString().contains(word) || sb.reverse().toString().contains(word)) {
 				return true;
 			}
 		}
