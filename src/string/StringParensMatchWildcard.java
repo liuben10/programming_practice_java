@@ -6,42 +6,48 @@ import java.util.Stack;
  */
 public class StringParensMatchWildcard {
 
-	public static boolean parensMatches(String input) {
-		Stack<Character> charsToMatch = new Stack<>();
-
+	public static boolean parensMatchesHelp(String input) {
 		char[] inputChars = input.toCharArray();
-		for(int i = 0; i < inputChars.length; i++) {
-			char current = inputChars[i];
 
-			if (current == '(') {
-				charsToMatch.push(current);
-			} else if (current == ')') {
-				if (charsToMatch.isEmpty()) {
+		Stack<Character> open = new Stack<>();
+		Stack<Character> wilds = new Stack<>();
+		for(int i = 0; i < inputChars.length; i++) {
+			char cur = inputChars[i];
+			if (cur == '(') {
+				open.push(cur);
+			} else if (cur == ')') {
+				if (!open.isEmpty()) {
+					open.pop();
+				} else if (!wilds.isEmpty()) {
+					wilds.pop();
+				} else {
 					return false;
 				}
-				char matching = charsToMatch.peek();
-				if (matching == '(' || matching == '*') {
-					charsToMatch.pop();
-				}
-			} else if (current == '*') {
-//				if (charsToMatch.isEmpty()) {
-//					charsToMatch.push(current);
-//				} else {
-//					char curr = charsToMatch.peek();
-//
-//					if (curr == '(') {
-//						charsToM
-//					}
-//				}
-			} //TODO finish me
-			return false;
+			} else {
+				wilds.push(cur);
+			}
 		}
-		return false;
-
+		return true;
 	}
 
+	public static boolean parensMatch(String input) {
+		boolean forward = parensMatchesHelp(input);
+		StringBuilder reversed = new StringBuilder();
+		for (int i = input.length() - 1; i >= 0; i--) {
+			char c = input.charAt(i);
+			if (c == '(') {
+				reversed.append(')');
+			} else if (c == ')') {
+				reversed.append('(');
+			} else {
+				reversed.append(c);
+			}
+		}
+		boolean backwards = parensMatchesHelp(reversed.toString());
+		return forward && backwards;
+	}
 
 	public static void main(String...args) {
-
+		System.out.println(parensMatch("(((()())()))())"));
 	}
 }
