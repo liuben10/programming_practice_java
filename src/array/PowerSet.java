@@ -13,7 +13,7 @@ public class PowerSet {
 	/**
 	 * "A", "B", "C", "D"
 	 * Example: i = 1101 and idx = 3
-	 * idx = listIn.size() - 1 -> 1111
+	 * idx = listIn.size() - 1
 	 *  1101
 	 *  1000
 	 * @param listIn
