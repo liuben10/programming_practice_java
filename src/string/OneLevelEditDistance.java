@@ -13,7 +13,6 @@ public class OneLevelEditDistance {
 			return false;
 		}
 
-		boolean hasAnEdit = false;
 		for (int i = 0, j = 0; i < longest.length() && j < shortest.length(); i++, j++) {
 			if (longest.charAt(i) != shortest.charAt(j)) {
 				if (a.length() == b.length()) {
@@ -25,7 +24,7 @@ public class OneLevelEditDistance {
 				}
 			}
 		}
-		return hasAnEdit;
+		return false;
 	}
 
 	public static void main(String...args) {

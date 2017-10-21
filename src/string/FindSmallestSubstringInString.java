@@ -11,7 +11,7 @@ public class FindSmallestSubstringInString {
 	
 	
 	public static String smallestSubstring(String arr, String input) {
-		Map<Character, Integer> counts = new HashMap<Character, Integer>();
+		Map<Character, Integer> counts = new HashMap<>();
 		for(int i = 0; i < arr.length(); i++) {
 			counts.put(arr.charAt(i), 0);
 		}
