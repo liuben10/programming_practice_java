@@ -10,8 +10,8 @@ public class Combination {
 	public static void main(String...args) {
 		Set<String> result = combinationRecursive("abcde");
 		System.out.println(result);
-	}
 
+	}
 
 	public static Set<String> combinationRecursive(String input) {
 		if (input.length() == 0) {
