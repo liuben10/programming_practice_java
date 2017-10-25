@@ -7,6 +7,20 @@ import java.util.Arrays;
  */
 public class SubsetSumDynamic {
 
+	public static int subsetSumNaive(int[] input, int N, int k) {
+		if (N == 0) {
+			if (input[0] == k) {
+				return 1;
+			} else {
+				return 0;
+			}
+		} else if (input[N] == k) {
+			return 1;
+		} else {
+			return subsetSumNaive(input, N-1, k-input[N]) + subsetSumNaive(input, N-1, k);
+		}
+	}
+
 	private static int countSubsets(int[] S, int n) {
 		int m = S.length;
 		int[][] V = new int[n+1][m];

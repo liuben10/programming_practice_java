@@ -12,8 +12,6 @@ public class RomanNumeral {
 
 	private static Map<Integer, Character> numeralToRoman = new LinkedHashMap<>();
 
-
-
 	static {
 		romanNumeralToInteger.put('M', 1000);
 		romanNumeralToInteger.put('D', 500);
@@ -59,14 +57,11 @@ public class RomanNumeral {
 				num -= romanNumeral.getValue();
 				sb.append(romanNumeral.getKey());
 			}
-
-
 		}
 		return sb.toString();
 	}
 
 	public static void main(String...args) {
-
 		System.out.println(convert("XLIX"));
 		System.out.println(convert(9));
 	}
