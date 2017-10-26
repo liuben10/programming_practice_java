@@ -12,9 +12,9 @@ public class ChessBoard {
 
 	public static String WHITE = "W";
 
-	List<ChessPiece> whitePieces = new ArrayList<>();
+	List<AbstractColoredChessPiece> whitePieces = new ArrayList<>();
 
-	List<ChessPiece> blackPieces = new ArrayList<>();
+	List<AbstractColoredChessPiece> blackPieces = new ArrayList<>();
 
 	public static ChessPiece EMPTY = new Empty();
 
@@ -56,13 +56,13 @@ public class ChessBoard {
 
 		for (int i = 0; i < 2; i++) {
 			for (int j = 0; j < 8; j++) {
-				blackPieces.add(board[i][j]);
+				blackPieces.add((AbstractColoredChessPiece) board[i][j]);
 			}
 		}
 
 		for (int i = 6; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				whitePieces.add(board[i][j]);
+				whitePieces.add((AbstractColoredChessPiece) board[i][j]);
 			}
 		}
 	}
@@ -99,5 +99,14 @@ public class ChessBoard {
 	public static void main(String...args) {
 		ChessBoard chessBoard = new ChessBoard();
 		System.out.println(chessBoard.boardToString());
+		for (AbstractColoredChessPiece whitePiece : chessBoard.whitePieces) {
+			System.out.println(whitePiece.toString() + ", " + whitePiece.possibleMoves(chessBoard));
+		}
+
+		System.out.println("====");
+
+		for (AbstractColoredChessPiece whitePiece : chessBoard.blackPieces) {
+			System.out.println(whitePiece.toString() + ", " + whitePiece.possibleMoves(chessBoard));
+		}
 	}
 }

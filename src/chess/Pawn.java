@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static chess.ChessBoard.BLACK;
+import static chess.ChessBoard.EMPTY;
 
 /**
  */
@@ -14,27 +15,27 @@ public class Pawn  extends AbstractColoredChessPiece  {
 	}
 
 	@Override
-	List<List<Integer>> possibleMoves() {
+	List<List<Integer>> possibleMoves(ChessBoard board) {
 		int row = currentCoordinate.get(0);
 		int col = currentCoordinate.get(1);
 
 		if (color.equals(BLACK)) {
 			List<List<Integer>> possibleMoves = new ArrayList<>();
 			if (row == 1) {
-				possibleMoves.add(Arrays.asList(row + 2, col));
+				if (board.getBoard()[row+1][col] == EMPTY) possibleMoves.add(Arrays.asList(row + 2, col));
 			}
-			if (row+1 < 8) possibleMoves.add(Arrays.asList(row + 1, col));
-			if (row+1 < 8 && col-1 >= 0) possibleMoves.add(Arrays.asList(row+1, col-1));
-			if (row+1 < 8 && col+1 < 8) possibleMoves.add(Arrays.asList(row+1, col+1));
+			if (row+1 < 8 && board.getBoard()[row+1][col] == EMPTY) possibleMoves.add(Arrays.asList(row + 1, col));
+			if (row+1 < 8 && col-1 >= 0 && board.getBoard()[row+1][col-1] != EMPTY && !board.getBoard()[row+1][col-1].getColor().equals(getColor())) possibleMoves.add(Arrays.asList(row+1, col-1));
+			if (row+1 < 8 && col+1 < 8 && board.getBoard()[row+1][col+1] != EMPTY && !board.getBoard()[row+1][col+1].getColor().equals(getColor())) possibleMoves.add(Arrays.asList(row+1, col+1));
 			return possibleMoves;
 		} else {
 			List<List<Integer>> possibleMoves = new ArrayList<>();
 			if (row == 6) {
-				possibleMoves.add(Arrays.asList(row - 2, col));
+				if (board.getBoard()[row-1][col] == EMPTY) possibleMoves.add(Arrays.asList(row - 2, col));
 			}
-			if (row-1 >= 0) possibleMoves.add(Arrays.asList(row - 1, col));
-			if (row-1 >= 0 && col-1 >= 0) possibleMoves.add(Arrays.asList(row-1, col-1));
-			if (row-1 >= 0 && col+1 < 8) possibleMoves.add(Arrays.asList(row-1, col+1));
+			if (row-1 >= 0 && board.getBoard()[row-1][col] == EMPTY) possibleMoves.add(Arrays.asList(row - 1, col));
+			if (row-1 >= 0 && col-1 >= 0 && board.getBoard()[row-1][col-1] != EMPTY && !board.getBoard()[row-1][col-1].getColor().equals(getColor())) possibleMoves.add(Arrays.asList(row-1, col-1));
+			if (row-1 >= 0 && col+1 < 8 && board.getBoard()[row-1][col+1] != EMPTY && !board.getBoard()[row-1][col+1].getColor().equals(getColor())) possibleMoves.add(Arrays.asList(row-1, col+1));
 			return possibleMoves;
 		}
 	}

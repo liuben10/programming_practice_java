@@ -1,6 +1,9 @@
 package chess;
 
+import java.util.Arrays;
 import java.util.List;
+
+import static chess.ChessBoard.EMPTY;
 
 /**
  */
@@ -32,4 +35,16 @@ public abstract class AbstractColoredChessPiece implements ChessPiece {
 	}
 
 	abstract List<List<Integer>> possibleMoves(ChessBoard chessBoard);
+
+	public void addMoveAndBlocked(ChessBoard board, int row, int col, boolean[] blocked, List<List<Integer>> possibleMoves) {
+		ChessPiece piece = board.getBoard()[row][col];
+		if (piece != EMPTY) {
+			blocked[0] = true;
+			if (!piece.getColor().equals(getColor())) {
+				possibleMoves.add(Arrays.asList(row, col));
+			}
+		} else {
+			possibleMoves.add(Arrays.asList(row, col));
+		}
+	}
 }
