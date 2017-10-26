@@ -1,5 +1,6 @@
 package csp;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Sets;
 
 import java.util.*;
@@ -21,6 +22,8 @@ public class Cryptagrithm {
 				}
 			}
 		}
+
+		relationList.add(new UniqueRelation());
 
 		relationList.add(new NotAllZero(domains));
 
@@ -95,7 +98,7 @@ public class Cryptagrithm {
 			while(checkSum > 0) {
 				int digit = checkSum % 10;
 				if (!assignments.containsKey(resultExpr[exprIdx])) {
-					return false;
+					return true;
 				} else {
 					if (digit == assignments.get(resultExpr[exprIdx])) {
 						exprIdx += 1;
@@ -118,23 +121,28 @@ public class Cryptagrithm {
 	private Map<String, Integer> cryptaHelper(Map<String, Integer> assignments, String evaluating) {
 		Sets.SetView<String> difference = Sets.difference(domains, assignments.keySet());
 
-		if (difference.isEmpty()) {
+		if (!assignments.isEmpty() && difference.isEmpty()) {
 			return assignments;
 		} else {
+			HashMap<String, Integer> copy = new HashMap<>();
+			copy.putAll(assignments);
 			for (int i = 0; i < 10; i++) {
-				assignments.put(evaluating, i);
-				if (!violatesConstraint(assignments, relationList)) {
+				copy.put(evaluating, i);
+				if (!violatesConstraint(copy, relationList)) {
 					if (difference.isEmpty()) {
-						return assignments;
-					}
-					String unassigned = difference.iterator().next();
-
-					Map<String, Integer> finalAssignment = cryptaHelper(assignments, unassigned);
-					if (finalAssignment != null) {
-						return finalAssignment;
+						return copy;
 					} else {
-						assignments.remove(evaluating, i);
+						String unassigned = difference.iterator().next();
+
+						Map<String, Integer> finalAssignment = cryptaHelper(copy, unassigned);
+						if (finalAssignment != null) {
+							return finalAssignment;
+						} else {
+							continue;
+						}
 					}
+				} else {
+					continue;
 				}
 			}
 			return null;
@@ -152,10 +160,21 @@ public class Cryptagrithm {
 
 	public static void main(String...args) {
 		String[][] testIn = new String[][]{
-				{"O", "W", "T"},
-				{"O", "W", "T"},
-				{"R", "U", "O", "F"}
+//				     {"O", "W", "T"},
+//				     {"O", "W", "T"},
+//				{"R", "U", "O", "F"}
+				{"A", "B"},
+				{"F", "G"},
+				{"H", "K"}
 		};
+
+		SumRelation sr = new SumRelation(testIn);
+
+		System.out.println(sr.acceptable(ImmutableMap.of(
+				"A", 1,
+				"B", 0,
+				"F", 0,
+				"G", 0)));
 
 		final Cryptagrithm cryptagrithm = new Cryptagrithm(testIn);
 
