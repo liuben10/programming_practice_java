@@ -14,6 +14,10 @@ public class Square {
 		this.chessPiece = chessPiece;
 	}
 
+	public void removeChessPiece() {
+		this.chessPiece = null;
+	}
+
 	public boolean isEmpty() {
 		return this.chessPiece == null;
 	}
