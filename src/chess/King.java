@@ -3,6 +3,8 @@ package chess;
 import java.util.ArrayList;
 import java.util.List;
 
+import static chess.ChessBoard.WHITE;
+
 /**
  */
 public class King extends ChessPiece  {
@@ -35,4 +37,30 @@ public class King extends ChessPiece  {
 
 		return possibleMoves;
 	}
+
+	public List<List<Integer>> movesNotInCheck(final ChessBoard board) {
+		List<List<Integer>> possibleMovesNotInCheck = possibleMoves(board);
+		List<List<Integer>> movesNotInCheck = new ArrayList<>();
+
+		possibleMovesNotInCheck.forEach((move) -> {
+			if (getColor().equals(WHITE)) {
+				for (ChessPiece blackPiece : board.blackPieces) {
+					if (!blackPiece.possibleMoves(board).contains(move)) {
+						return;
+					}
+				}
+				movesNotInCheck.add(move);
+			} else {
+				for (ChessPiece whitePiece : board.whitePieces) {
+					if (whitePiece.possibleMoves(board).contains(move)) {
+						return;
+					}
+				}
+				movesNotInCheck.add(move);
+			}
+		});
+		return movesNotInCheck;
+	}
+
+
 }

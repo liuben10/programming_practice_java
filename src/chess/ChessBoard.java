@@ -1,8 +1,6 @@
 package chess;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  */
@@ -152,36 +150,17 @@ public class ChessBoard {
 
 	private boolean checkMate(String color) {
 		if (color.equals(WHITE)) {
-			if (inCheck(WHITE, whiteKing.currentCoordinate) && allMovesAreInCheck(WHITE)) {
+			if (inCheck(WHITE, whiteKing.currentCoordinate) && whiteKing.possibleMoves(this).isEmpty()) {
 				return true;
 			}
 			return false;
 		} else {
-			if (inCheck(BLACK, blackKing.currentCoordinate) && allMovesAreInCheck(BLACK)) {
+			if (inCheck(BLACK, blackKing.currentCoordinate) && blackKing.possibleMoves(this).isEmpty()) {
 				return true;
 			}
 			return false;
 		}
 	}
-
-	private boolean allMovesAreInCheck(String color) {
-		if (color.equals(WHITE)) {
-			for (List<Integer> moves : whiteKing.possibleMoves(this)) {
-				if (!inCheck(WHITE, moves)) {
-					return false;
-				}
-			}
-			return true;
-		} else {
-			for (List<Integer> moves : blackKing.possibleMoves(this)) {
-				if (!inCheck(BLACK, moves)) {
-					return false;
-				}
-			}
-			return true;
-		}
-	}
-
 
 	public boolean inCheck(String color, List<Integer> coordinate) {
 		if (color.equals(WHITE)) {
@@ -222,22 +201,50 @@ public class ChessBoard {
 
 	public static void main(String...args) {
 		ChessBoard chessBoard = new ChessBoard();
-		System.out.println(chessBoard.boardToString());
-		printLegalMoves(chessBoard);
 
-		System.out.println(chessBoard.checkMate(WHITE));
-		System.out.println(chessBoard.checkMate(BLACK));
+		Scanner s = new Scanner(System.in);
+		int moveIdx = 0;
+		String[] COLORS = {WHITE, BLACK};
+		String color;
+		Random r = new Random();
+		while(chessBoard.hasEnded().ongoing()) {
+			color = COLORS[moveIdx % 2];
+			String next = s.next();
+			if (color.equals(WHITE)) {
+				List<ChessPiece> whitePieces = chessBoard.whitePieces;
+				List<ChessPiece> hasLegalMoves = new ArrayList<>();
+				whitePieces.forEach((p) -> {
 
-		chessBoard.move(WHITE, Arrays.asList(6, 3), Arrays.asList(4, 3));
-		System.out.println(chessBoard.boardToString());
+					if (p instanceof King) {
+						if (!((King) p).movesNotInCheck(chessBoard).isEmpty())  {
+							hasLegalMoves.add(p);
+						}
+					} else if (!p.possibleMoves(chessBoard).isEmpty()) {
+						hasLegalMoves.add(p);
+					}
+				});
+				ChessPiece randomPieceToPlay = hasLegalMoves.get(r.nextInt(hasLegalMoves.size()));
 
-		chessBoard.move(BLACK, Arrays.asList(1, 3), Arrays.asList(3, 3));
-		System.out.println(chessBoard.boardToString());
+				List<List<Integer>> legalMoves = randomPieceToPlay instanceof King ? ((King) randomPieceToPlay).movesNotInCheck(chessBoard) : randomPieceToPlay.possibleMoves(chessBoard);
+				chessBoard.move(randomPieceToPlay, legalMoves.get(r.nextInt(legalMoves.size())));
+			} else {
+				List<ChessPiece> blackPieces = chessBoard.blackPieces;
+				List<ChessPiece> hasLegalMoves = new ArrayList<>();
+				blackPieces.forEach((p) -> {
+					if (!p.possibleMoves(chessBoard).isEmpty()) {
+						hasLegalMoves.add(p);
+					}
+				});
+				ChessPiece randomPieceToPlay = hasLegalMoves.get(r.nextInt(hasLegalMoves.size()));
+				List<List<Integer>> legalMoves = randomPieceToPlay instanceof King ? ((King) randomPieceToPlay).movesNotInCheck(chessBoard) : randomPieceToPlay.possibleMoves(chessBoard);
+				chessBoard.move(randomPieceToPlay, legalMoves.get(r.nextInt(legalMoves.size())));
+			}
+			System.out.println(chessBoard.boardToString());
+			System.out.println(chessBoard.capturedBlack);
+			System.out.println(chessBoard.capturedWhite);
+			moveIdx += 1;
 
-		chessBoard.move(WHITE, Arrays.asList(7, 1), Arrays.asList(5, 2));
-		System.out.println(chessBoard.boardToString());
-
-		printLegalMoves(chessBoard);
+		}
 
 	}
 
