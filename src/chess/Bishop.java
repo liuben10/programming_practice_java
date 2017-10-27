@@ -6,7 +6,7 @@ import java.util.List;
 /**
  */
 @SuppressWarnings("Duplicates")
-public class Bishop  extends AbstractColoredChessPiece  {
+public class Bishop  extends ChessPiece  {
 
 	public Bishop(String color, List<Integer> currentCoordinate) {
 		super(color, "B", currentCoordinate);

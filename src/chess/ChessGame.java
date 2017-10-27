@@ -13,7 +13,6 @@ public class ChessGame {
 
 	public void play() {
 
-
 		while (chessBoard.hasEnded().ongoing()) {
 
 		}

@@ -6,7 +6,7 @@ import java.util.List;
 /**
  */
 @SuppressWarnings("Duplicates")
-public class Rook extends AbstractColoredChessPiece {
+public class Rook extends ChessPiece {
 	public Rook(String color, List<Integer> currentCoordinate) {
 		super(color, "R", currentCoordinate);
 	}

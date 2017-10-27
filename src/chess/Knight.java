@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  */
-public class Knight extends AbstractColoredChessPiece {
+public class Knight extends ChessPiece {
 
 	public Knight(String color, List<Integer> currentCoordinate) {
 		super(color, "N", currentCoordinate);
