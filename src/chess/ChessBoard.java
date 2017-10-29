@@ -18,30 +18,25 @@ public class ChessBoard {
 
 	List<ChessPiece> blackPieces = new ArrayList<>();
 
-	ChessPiece whiteKing;
+	King whiteKing;
 
-	ChessPiece blackKing;
+	King blackKing;
 
 	List<Move> moves;
 
 	public Square[][] board;
 
 	public ChessBoard() {
-		board = new Square[8][8];
+		this.initializeEmptyBoard();
 		moves = new ArrayList<>();
-
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				board[i][j] = new Square();
-			}
-		}
 
 		board[0][0].setChessPiece(new Rook(BLACK, Arrays.asList(0, 0)));
 		board[0][1].setChessPiece(new Knight(BLACK, Arrays.asList(0, 1)));
 		board[0][2].setChessPiece(new Bishop(BLACK, Arrays.asList(0, 2)));
 		board[0][3].setChessPiece(new Queen(BLACK, Arrays.asList(0, 3)));
-		board[0][4].setChessPiece(new King(BLACK, Arrays.asList(0, 4)));
-		blackKing = board[0][4].getChessPiece();
+		King blackKing = new King(BLACK, Arrays.asList(0, 4));
+		board[0][4].setChessPiece(blackKing);
+		this.blackKing = blackKing;
 		board[0][5].setChessPiece(new Bishop(BLACK, Arrays.asList(0, 5)));
 		board[0][6].setChessPiece(new Knight(BLACK, Arrays.asList(0, 6)));
 		board[0][7].setChessPiece(new Rook(BLACK, Arrays.asList(0, 7)));
@@ -57,8 +52,9 @@ public class ChessBoard {
 		board[7][1].setChessPiece(new Knight(WHITE, Arrays.asList(7, 1)));
 		board[7][2].setChessPiece(new Bishop(WHITE, Arrays.asList(7, 2)));
 		board[7][3].setChessPiece(new Queen(WHITE, Arrays.asList(7, 3)));
-		board[7][4].setChessPiece(new King(WHITE, Arrays.asList(7, 4)));
-		whiteKing = board[7][4].getChessPiece();
+		King whiteKing = new King(WHITE, Arrays.asList(7, 4));
+		board[7][4].setChessPiece(whiteKing);
+		this.whiteKing = whiteKing;
 		board[7][5].setChessPiece(new Bishop(WHITE, Arrays.asList(7, 5)));
 		board[7][6].setChessPiece(new Knight(WHITE, Arrays.asList(7, 6)));
 		board[7][7].setChessPiece(new Rook(WHITE, Arrays.asList(7, 7)));
@@ -72,6 +68,16 @@ public class ChessBoard {
 		for (int i = 6; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				whitePieces.add( board[i][j].getChessPiece());
+			}
+		}
+	}
+
+	public void initializeEmptyBoard() {
+		this.board = new Square[8][8];
+
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				board[i][j] = new Square();
 			}
 		}
 	}
@@ -150,12 +156,12 @@ public class ChessBoard {
 
 	private boolean checkMate(String color) {
 		if (color.equals(WHITE)) {
-			if (inCheck(WHITE, whiteKing.currentCoordinate) && whiteKing.possibleMoves(this).isEmpty()) {
+			if (inCheck(WHITE, whiteKing.currentCoordinate) && whiteKing.movesNotInCheck(this).isEmpty()) {
 				return true;
 			}
 			return false;
 		} else {
-			if (inCheck(BLACK, blackKing.currentCoordinate) && blackKing.possibleMoves(this).isEmpty()) {
+			if (inCheck(BLACK, blackKing.currentCoordinate) && blackKing.movesNotInCheck(this).isEmpty()) {
 				return true;
 			}
 			return false;
@@ -210,6 +216,8 @@ public class ChessBoard {
 		while(chessBoard.hasEnded().ongoing()) {
 			color = COLORS[moveIdx % 2];
 			String next = s.next();
+
+
 			if (color.equals(WHITE)) {
 				List<ChessPiece> whitePieces = chessBoard.whitePieces;
 				List<ChessPiece> hasLegalMoves = new ArrayList<>();
@@ -223,6 +231,7 @@ public class ChessBoard {
 						hasLegalMoves.add(p);
 					}
 				});
+
 				ChessPiece randomPieceToPlay = hasLegalMoves.get(r.nextInt(hasLegalMoves.size()));
 
 				List<List<Integer>> legalMoves = randomPieceToPlay instanceof King ? ((King) randomPieceToPlay).movesNotInCheck(chessBoard) : randomPieceToPlay.possibleMoves(chessBoard);

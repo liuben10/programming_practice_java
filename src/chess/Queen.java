@@ -32,7 +32,7 @@ public class Queen extends ChessPiece {
 		boolean[] blockedL = {false};
 		boolean[] blockedU = {false};
 		boolean[] blockedD = {false};
-		for (int offset = 0; offset < 8; offset++) {
+		for (int offset = 1; offset < 8; offset++) {
 			if (row + offset < 8 && !blockedR[0]) addMoveAndBlocked(chessBoard, row+offset, col, blockedR, possibleMoves);
 			if (row - offset >= 0 && !blockedL[0]) addMoveAndBlocked(chessBoard, row-offset, col, blockedL, possibleMoves);
 			if (col + offset < 8 && !blockedD[0]) addMoveAndBlocked(chessBoard, row, col+offset, blockedD, possibleMoves);
