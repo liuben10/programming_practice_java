@@ -39,7 +39,6 @@ public class DiceProblem {
 			V[1][i] = 1;
 		}
 
-
 		for (int i = 2; i <= m; i++)
 			for (int j = 1; j <= k; j++)
 				for (int l = 1; l <= k && l < j; l++)
