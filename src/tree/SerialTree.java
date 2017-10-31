@@ -94,6 +94,5 @@ public class SerialTree {
 		TreeNode deserialized = deserialize(serialized);
 
 		System.out.println(deserialized.left.left.val);
-
 	}
 }
