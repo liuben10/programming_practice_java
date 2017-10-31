@@ -77,6 +77,6 @@ public class ProperAlphabetSoup {
 				{'m', 'l', 'i', 't'},
 				{'b', 'f', 't', 'd'}
 		};
-		System.out.println(canFindInGrid(testGrid, "kid"));
+		System.out.println(canFindInGrid(testGrid, "flk"));
 	}
 }
