@@ -1,7 +1,5 @@
 package dynamic;
 
-import java.util.Arrays;
-
 /**
  * Created by benjaminliu on 10/30/17.
  */
@@ -37,10 +35,6 @@ public class SubsetSumList {
 					keep[i][j] = keep[i][j-1];
 				}
 			}
-		}
-
-		for (int i = 0; i < keep.length; i++) {
-			System.out.println(Arrays.toString(keep[i]));
 		}
 
 		printSubsetSums(keep, target, N, "");
