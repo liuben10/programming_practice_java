@@ -4,6 +4,26 @@ package array;
  */
 public class Kadanes {
 
+	public static int kadanesNaive(int[] input) {
+		int maxSoFar = 0;
+		int maxUpTo = 0;
+
+		for (int i = 0; i < input.length; i++) {
+			int cur = input[i];
+			maxUpTo = maxUpTo + cur;
+
+			if (maxUpTo < 0) {
+				maxUpTo = 0;
+			}
+
+			if (maxUpTo > maxSoFar) {
+				maxSoFar = maxUpTo;
+			}
+		}
+
+		return maxSoFar;
+	}
+
 	public static int maxSumCont(int[] input) {
 		int max = Integer.MIN_VALUE;
 		int sum = 0;
@@ -46,8 +66,10 @@ public class Kadanes {
 
 	public static void main(String...args) {
 
-		System.out.println(maxSumCont(new int[]{5, -1, 3, 6, -2, 4}));
+//		System.out.println(maxSumCont(new int[]{5, -1, 3, 6, -2, 4}));
+//
+//		System.out.println(maxSumK(new int[]{1, -4, 3, 8, -1, 2, -1, -4}, 4));
 
-		System.out.println(maxSumK(new int[]{1, -4, 3, 8, -1, 2, -1, -4}, 4));
+		System.out.println(kadanesNaive(new int[]{5, -1, 6, -1000, 2000}));
 	}
 }
