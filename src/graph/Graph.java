@@ -52,26 +52,6 @@ public class Graph {
 
 		Integer pathWeight;
 
-		@Override
-		public boolean equals(Object o) {
-			if (this == o) return true;
-			if (o == null || getClass() != o.getClass()) return false;
-
-			NodeAndPath that = (NodeAndPath) o;
-
-			if (node != null ? !node.equals(that.node) : that.node != null) return false;
-			if (path != null ? !path.equals(that.path) : that.path != null) return false;
-			return pathWeight != null ? pathWeight.equals(that.pathWeight) : that.pathWeight == null;
-		}
-
-		@Override
-		public int hashCode() {
-			int result = node != null ? node.hashCode() : 0;
-			result = 31 * result + (path != null ? path.hashCode() : 0);
-			result = 31 * result + (pathWeight != null ? pathWeight.hashCode() : 0);
-			return result;
-		}
-
 		public NodeAndPath(Integer node, List<Integer> path, Integer pathWeight) {
 			this.node = node;
 			this.path = path;
@@ -100,13 +80,21 @@ public class Graph {
 						Integer weight = cur.pathWeight + graphNode.weight;
 						fringe.push(new NodeAndPath(graphNode.nodeId, copy, weight));
 					} else {
-						throw new IllegalArgumentException("Cannot have cycles for the longest path problem");
+						List<Integer> cycle = buildCycle(cur, graphNode.nodeId);
+						throw new IllegalArgumentException("Cannot have cycles for the longest path problem, cycle=" + cycle);
 					}
 				}
 			}
 		}
 
 		return maxPath;
+	}
+
+	private List<Integer> buildCycle(NodeAndPath cur, Integer nodeId) {
+		int cycleIdx = cur.path.indexOf(nodeId);
+		List<Integer> cycle = new ArrayList<>(cur.path).subList(cycleIdx, cur.path.size());
+		cycle.add(cur.node);
+		return cycle;
 	}
 
 	public static void main(String...args) {
@@ -117,6 +105,7 @@ public class Graph {
 		g.addEdge(2, 6, 7);
 		g.addEdge(6, 4, 10);
 		g.addEdge(6, 9, 11);
+		g.addEdge(6, 15, 2);
 		g.addEdge(9, 15, 13);
 		g.addEdge(3, 4, 2);
 
