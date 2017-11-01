@@ -25,9 +25,6 @@ public class SortingAlgs {
 		}
 	}
 
-
-
-
 	public static int[] quickSort(int[] input) {
 		quickSortHelp(input, 0, input.length - 1);
 
