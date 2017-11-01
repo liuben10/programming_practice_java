@@ -1,6 +1,7 @@
 package sorting;
 
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  */
@@ -22,6 +23,61 @@ public class SortingAlgs {
 				}
 			}
 		}
+	}
+
+
+
+
+	public static int[] quickSort(int[] input) {
+		quickSortHelp(input, 0, input.length - 1);
+
+		return input;
+	}
+
+	private static void quickSortHelp(int[] input, int start, int end) {
+		if (start >= end) {
+			return;
+		} else {
+			int partIdx = partition(input, start, end);
+
+			quickSortHelp(input, start, partIdx);
+
+			quickSortHelp(input, partIdx+1, end);
+		}
+	}
+
+	/**
+	 *
+	 * {1, 2, 4, 5, 3}
+	 *
+	 * @param input
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	private static int partition(int[] input, int start, int end) {
+		Random r = new Random();
+		int randomNum = r.nextInt(end - start);
+		int pivot = randomNum + start;
+		int pivotEl = input[pivot];
+
+		swap(input, pivot, end);
+
+		int lower = start;
+		for (int i = start; i < end; i++) {
+			if (input[lower] < pivotEl) {
+				lower += 1;
+			} else {
+				if (input[i] < pivotEl) {
+					swap(input, lower, i);
+					lower += 1;
+				}
+			}
+		}
+
+		swap(input, lower, end);
+
+		return lower;
 	}
 
 
@@ -71,7 +127,10 @@ public class SortingAlgs {
 
 	public static void main(String...args) {
 		int[] input = {5, 2, 3, 4, 10, 4, 9, 11, 16};
-		int[] sorted = mergeSort(input);
+//		int[] sorted = mergeSort(input);
+//		System.out.println(Arrays.toString(sorted));
+
+		int[] sorted = quickSort(input);
 		System.out.println(Arrays.toString(sorted));
 	}
 }
