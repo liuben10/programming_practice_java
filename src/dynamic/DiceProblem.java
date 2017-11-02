@@ -12,7 +12,9 @@ public class DiceProblem {
 	 * @return
 	 */
 	public static int countWaysNaive(int m, int n, int k) {
-		if (m == 1 && n <= k) {
+		if (m == 0) {
+			return 0;
+		} else if (m == 1 && n <= k) {
 			return 1;
 		} else if (m == 1) {
 			return 0;
@@ -49,6 +51,6 @@ public class DiceProblem {
 	}
 
 	public static void main(String...args) {
-		System.out.println(countWaysNaive(2, 3, 5) + ", " + countWays(2, 3, 5));
+		System.out.println(countWaysNaive(3, 6, 7) + ", " + countWays(3, 6, 7));
 	}
 }
