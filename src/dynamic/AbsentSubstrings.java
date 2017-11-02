@@ -16,7 +16,14 @@ public class AbsentSubstrings {
 		}
 	}
 
-	private static int howManyOkNaive(int target) {
+
+	private static int howManyOkRecurs(int target) {
+
+
+		return 0;
+	}
+
+	private static int howManyOkGraph(int target) {
 		int total = 0;
 
 		final String states = "AOL";
@@ -45,10 +52,7 @@ public class AbsentSubstrings {
 			}
 		}
 
-
 		return total;
-
-
 	}
 
 	private static boolean notThreeConsecutive(String path) {
@@ -71,6 +75,6 @@ public class AbsentSubstrings {
 	 * @param args
 	 */
 	public static void main(String...args) {
-		System.out.println(howManyOkNaive(3));
+		System.out.println(howManyOkGraph(3));
 	}
 }
