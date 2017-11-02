@@ -1,5 +1,8 @@
 package dynamic;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  */
 public class DiceProblem {
@@ -11,20 +14,30 @@ public class DiceProblem {
 	 * @param k target
 	 * @return
 	 */
-	public static int countWaysNaive(int m, int n, int k) {
-		if (m == 0) {
+	public static int countWaysNaive(int m, int n, int k, List<Integer> waysSoFar) {
+		if (m == 1) {
+			if (k == 0) {
+				return 0;
+			}
+			if (n >= k) {
+				waysSoFar.add(k);
+				System.out.println(waysSoFar);
+				return 1;
+			}
 			return 0;
-		} else if (m == 1 && n <= k) {
+		} else if (n == 0) {
+			return 0;
+		} else if (k == 0) {
 			return 1;
-		} else if (m == 1) {
-			return 0;
+		} else {
+			int sum = 0;
+			for (int face = 1; face < n && k-face >= 0; face++) {
+				ArrayList<Integer> rolledSoFar = new ArrayList<>(waysSoFar);
+				rolledSoFar.add(face);
+				sum += countWaysNaive(m-1, n, k-face, rolledSoFar);
+			}
+			return sum;
 		}
-
-		int sum = 0;
-		for (int i = m; i >= 0; i--) {
-			sum += countWaysNaive(m-1, n, k-m);
-		}
-		return sum;
 	}
 
 	/**
@@ -51,6 +64,7 @@ public class DiceProblem {
 	}
 
 	public static void main(String...args) {
-		System.out.println(countWaysNaive(3, 6, 7) + ", " + countWays(3, 6, 7));
+
+		System.out.println(countWaysNaive(3, 6, 5, new ArrayList<>()));
 	}
 }
