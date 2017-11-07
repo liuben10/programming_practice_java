@@ -8,6 +8,7 @@ import java.util.Set;
 public class LongestNoDuplicateSubstring {
 
 	public static int longestNoDups(String input) {
+
 		if (input.length() == 0) {
 			return 0;
 		}
@@ -44,6 +45,6 @@ public class LongestNoDuplicateSubstring {
 
 
 	public static void main(String...args) {
-		System.out.println(longestNoDups("abcdafgkglmnopqrstuv"));
+		System.out.println(longestNoDups("caabaad"));
 	}
 }
