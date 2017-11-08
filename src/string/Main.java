@@ -1,13 +1,18 @@
 package string;
 
 /**
- * Created by benjaminliu on 9/21/16.
  */
 public class Main {
 
+
+	public static void what(int n) {
+		n += 1;
+	}
+
 	public static void main(String...args) {
-		String input ="abc";
-		System.out.println(input.substring(1, 2));
+		int foo = 3;
+		what(foo);
+		System.out.println(foo);
 	}
 
 }
