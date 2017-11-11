@@ -7,7 +7,10 @@ import java.util.Stack;
 public class HistogramVolume {
 
 	static int histoVol(int[] input, int i, int j) {
-		return Math.min(input[i], input[j]) * j - i;
+		if (i == j) {
+			return input[i];
+		}
+		return Math.min(input[i], input[j]) * (j - i);
 	}
 
 	static int naiveVolume(int[] input) {
@@ -23,6 +26,28 @@ public class HistogramVolume {
 		return max;
 	}
 
+
+	static int moreOptimal(int[] input) {
+		int low = 0;
+		int hi = input.length - 1;
+
+		int max = 0;
+		while(low < hi) {
+			int currentVol = histoVol(input, low, hi);
+			if (currentVol > max) {
+				max = currentVol;
+			}
+			int min = Math.min(input[low], input[hi]);
+			if (min == input[low]) {
+				low += 1;
+			} else {
+				hi -= 1;
+			}
+		}
+
+		return max;
+	}
+
 	static int getMaxArea(int[] hist) {
 		Stack<Integer> bars = new Stack<>();
 
@@ -30,7 +55,6 @@ public class HistogramVolume {
 
 		int i = 0;
 		while (i < hist.length) {
-
 			if (bars.isEmpty() || hist[bars.peek()] < hist[i]) {
 				bars.push(i);
 			} else {
@@ -62,10 +86,7 @@ public class HistogramVolume {
 
 
 	public static void main(String...args) {
-
-		System.out.println(naiveVolume(new int[]{1, 3, 3, 4}));
-		System.out.println(getMaxArea(new int[]{1, 3, 3, 4}));
+		System.out.println(naiveVolume(new int[]{5, 3, 4}));
+		System.out.println(moreOptimal(new int[]{5, 3, 4}));
 	}
-
-
 }
