@@ -28,7 +28,8 @@ public class HistogramVolume {
 
 		int max_area = 0;
 
-		for (int i = 0; i < hist.length; i++) {
+		int i = 0;
+		while (i < hist.length) {
 
 			if (bars.isEmpty() || hist[bars.peek()] < hist[i]) {
 				bars.push(i);
@@ -57,14 +58,13 @@ public class HistogramVolume {
 		}
 
 		return max_area;
-
 	}
 
 
 	public static void main(String...args) {
 
-		System.out.println(naiveVolume(new int[]{1 ,3, 3, 4, 5, 6, 7}));
-		System.out.println(getMaxArea(new int[]{1, 3, 3, 4, 5, 6, 7}));
+		System.out.println(naiveVolume(new int[]{1, 3, 3, 4}));
+		System.out.println(getMaxArea(new int[]{1, 3, 3, 4}));
 	}
 
 

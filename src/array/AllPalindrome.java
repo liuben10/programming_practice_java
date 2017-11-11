@@ -25,10 +25,12 @@ public class AllPalindrome {
 				result.add(input.substring(i, i+j+1));
 				j++;
 			}
+
 			if(i < input.length()-1 && input.charAt(i) == input.charAt(i+1))
 				result.add(input.substring(i, i+2));
 
 			j = 0;
+
 			while(i-j >= 0 && i+j < input.length() && input.charAt(i-j) == input.charAt(i+j) ){
 
 				result.add(input.substring(i-j, i+j+1));
