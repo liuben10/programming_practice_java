@@ -9,8 +9,7 @@ public class MyLinkedList {
 		ll.push(3);
 		ll.push(4);
 		ll.push(5);
-		System.out.println(ll);
-		System.out.println(ll.pop());
+		ll.reverse();
 		System.out.println(ll);
 	}
 	
@@ -21,6 +20,19 @@ public class MyLinkedList {
 	
 	public boolean isEmpty() {
 		return this.size == 0;
+	}
+
+	public void append(int val) {
+		LinkListNode node = new LinkListNode(val, null);
+		if (this.hp == null) {
+			this.hp = node;
+		} else {
+			LinkListNode iter = this.hp;
+			while(iter.getNextNode() != null) {
+				iter = iter.getNextNode();
+			}
+			iter.setNextNode(node);
+		}
 	}
 	
 	public void push(int value) {
@@ -33,6 +45,18 @@ public class MyLinkedList {
 			this.hp.setNextNode(tmp);
 		}
 		this.size += 1;
+	}
+
+	public void reverse() {
+		LinkListNode iter = this.hp;
+		LinkListNode prev = null;
+		while(iter != null) {
+			LinkListNode tmp = iter;
+			iter = iter.getNextNode();
+			tmp.setNextNode(prev);
+			prev = tmp;
+		}
+		this.hp = prev;
 	}
 	
 	

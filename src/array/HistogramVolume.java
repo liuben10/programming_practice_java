@@ -1,5 +1,6 @@
 package array;
 
+import java.util.Arrays;
 import java.util.Stack;
 
 /**
@@ -32,7 +33,7 @@ public class HistogramVolume {
 		int hi = input.length - 1;
 
 		int max = 0;
-		while(low < hi) {
+		while(low <= hi) {
 			int currentVol = histoVol(input, low, hi);
 			if (currentVol > max) {
 				max = currentVol;
@@ -85,8 +86,20 @@ public class HistogramVolume {
 	}
 
 
+	public static boolean histogramVolumeTest(int[] testIn) {
+		return (naiveVolume(testIn) == moreOptimal(testIn));
+	}
+
+	public static String testResult(int[] testIn) {
+		return "Test Case = " + Arrays.toString(testIn) + ", result=" + histogramVolumeTest(testIn);
+	}
+
+
 	public static void main(String...args) {
-		System.out.println(naiveVolume(new int[]{5, 3, 4}));
-		System.out.println(moreOptimal(new int[]{5, 3, 4}));
+		System.out.println(testResult(new int[]{5, 3, 11}));
+		System.out.println(testResult(new int[]{11, 12, 14}));
+		System.out.println(testResult(new int[]{15, 19, 1}));
+		System.out.println(testResult(new int[]{2, 1000, 1}));
+		System.out.println(testResult(new int[]{1000, 4, 4}));
 	}
 }
